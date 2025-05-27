@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del Ahorcado - Documentación</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1>🎮 Juego del Ahorcado</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#requirements" class="nav-link">Requerimientos</a>
+                <a href="#flowchart" class="nav-link">Diagrama</a>
+                <a href="#classes" class="nav-link">Clases</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Juego del Ahorcado</h1>
+            <p class="hero-subtitle">Documentación técnica y análisis de implementación</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Clases</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Requerimientos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Python</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-code">
+                <pre><code class="python-code">class Game:
+    def __init__(self):
+        self.running = True
+        self.score = 0
+    
+    def start(self):
+        print("¡Juego iniciado!")
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section id="requirements" class="section">
+        <div class="container">
+            <h2 class="section-title">Requerimientos Funcionales</h2>
+            <div class="table-container">
+                <table class="requirements-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Requerimiento</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row">
+                            <td>RF001</td>
+                            <td>El sistema debe permitir iniciar una nueva partida</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF002</td>
+                            <td>El jugador debe poder ingresar letras</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF003</td>
+                            <td>El sistema debe validar las letras ingresadas</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF004</td>
+                            <td>El juego debe mantener un contador de intentos</td>
+                            <td><span class="priority medium">Media</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF005</td>
+                            <td>Debe existir una condición de victoria</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF006</td>
+                            <td>Debe existir una condición de derrota</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF007</td>
+                            <td>El juego debe mostrar la palabra parcialmente completada</td>
+                            <td><span class="priority high">Alta</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF008</td>
+                            <td>Debe mostrar las letras ya utilizadas</td>
+                            <td><span class="priority medium">Media</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF009</td>
+                            <td>El juego debe seleccionar palabras aleatoriamente</td>
+                            <td><span class="priority medium">Media</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF010</td>
+                            <td>Debe validar que no se repitan letras</td>
+                            <td><span class="priority medium">Media</span></td>
+                            <td><span class="status completed">Completado</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF011</td>
+                            <td>El juego debe mostrar el progreso del ahorcado</td>
+                            <td><span class="priority low">Baja</span></td>
+                            <td><span class="status pending">Pendiente</span></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td>RF012</td>
+                            <td>Debe permitir reiniciar el juego</td>
+                            <td><span class="priority medium">Media</span></td>
+                            <td><span class="status in-progress">En progreso</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flowchart Section -->
+    <section id="flowchart" class="section">
+        <div class="container">
+            <h2 class="section-title">Diagrama de Flujo del Juego</h2>
+            <div class="flowchart-container">
+                <div class="flowchart-node start-node">
+                    <span>Inicio</span>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node process-node">
+                    <span>Inicializar Juego</span>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node process-node">
+                    <span>Seleccionar Palabra Aleatoria</span>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node decision-node">
+                    <span>¿Juego en curso?</span>
+                </div>
+                <div class="flow-arrow">↓ Sí</div>
+                <div class="flowchart-node process-node">
+                    <span>Solicitar Letra al Usuario</span>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node decision-node">
+                    <span>¿Letra ya utilizada?</span>
+                </div>
+                <div class="flow-branch">
+                    <div class="branch-left">
+                        <div class="flow-arrow">← No</div>
+                        <div class="flowchart-node process-node">
+                            <span>Validar Letra</span>
+                        </div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flowchart-node decision-node">
+                            <span>¿Letra correcta?</span>
+                        </div>
+                    </div>
+                    <div class="branch-right">
+                        <div class="flow-arrow">→ Sí</div>
+                        <div class="flowchart-node process-node">
+                            <span>Mostrar Mensaje</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node decision-node">
+                    <span>¿Palabra completa o sin intentos?</span>
+                </div>
+                <div class="flow-arrow">↓ Sí</div>
+                <div class="flowchart-node process-node">
+                    <span>Mostrar Resultado Final</span>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flowchart-node end-node">
+                    <span>Fin</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="section">
+        <div class="container">
+            <h2 class="section-title">Estructura de Clases</h2>
+            <div class="classes-grid">
+                <!-- JuegoAhorcado Class -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-name">JuegoAhorcado</h3>
+                        <span class="class-type">Principal</span>
+                    </div>
+                    <div class="class-description">
+                        <p>Clase principal que controla la lógica del juego, maneja el estado, los intentos disponibles y coordina las interacciones entre las otras clases.</p>
+                    </div>
+                    <div class="code-container">
+                        <pre class="code-block"><code class="python-code">import random
+from enum import Enum
+from typing import List
+from Palabra import Palabra
+from Letra import Letra
+
+class Estado(Enum):
+    NO_INICIADO = 1
+    JUGANDO = 2
+    GANADOR = 3
+    AHORCADO = 4
+
+class JuegoAhorcado:
+    TOTAL_PALABRAS = 12
+    MAX_INTENTOS = 6
+
+    def __init__(self):
+        self.diccionario: List[Palabra] = [
+            Palabra("algoritmo"),
+            Palabra("contenedora"),
+            Palabra("avance"),
+            Palabra("ciclo"),
+            Palabra("indice"),
+            Palabra("instrucciones"),
+            Palabra("arreglo"),
+            Palabra("vector"),
+            Palabra("inicio"),
+            Palabra("cuerpo"),
+            Palabra("recorrido"),
+            Palabra("patron"),
+        ]
+        
+        # Atributos del estado del juego 
+        self.palabra_actual: Palabra = None
+        self.intentos_disponibles: int = self.MAX_INTENTOS
+        self.jugadas: List[Letra] = []
+        self.estado: Estado = Estado.NO_INICIADO
+
+    def iniciar_juego(self):
+        """Inicia un nuevo juego seleccionando una palabra aleatoria."""
+        indice_aleatorio = random.randint(0, self.TOTAL_PALABRAS - 1)
+        self.palabra_actual = self.diccionario[indice_aleatorio]
+        self.intentos_disponibles = self.MAX_INTENTOS
+        self.jugadas = []
+        self.estado = Estado.JUGANDO
+
+    def jugar_letra(self, letra: Letra) -> bool:
+        """
+        Juega una letra en el juego.
+        :param letra: La letra a jugar.
+        :return: True si la letra está en la palabra, False si no está.
+        """
+        if self.estado != Estado.JUGANDO:
+            return False
+        
+        # Verificar si la letra ya fue utilizada
+        if self.letra_utilizada(letra):
+            return False
+        
+        # Agregar la letra a las jugadas
+        self.jugadas.append(letra)
+        
+        # Verificar si la letra está en la palabra
+        if self.palabra_actual.esta_letra(letra):
+            # Verificar si se ganó el juego
+            if self.palabra_actual.esta_completa(self.jugadas):
+                self.estado = Estado.GANADOR
+            return True
+        else:
+            # La letra no está en la palabra, reducir intentos
+            self.intentos_disponibles -= 1
+            
+            # Verificar si se perdió el juego
+            if self.intentos_disponibles == 0:
+                self.estado = Estado.AHORCADO
+            
+            return False
+
+    def dar_palabra_actual(self) -> Palabra:
+        """Devuelve la palabra actual del juego."""
+        return self.palabra_actual
+
+    def dar_palabra(self, posicion: int) -> Palabra:
+        """
+        Devuelve la palabra en la posición especificada del diccionario.
+        :param posicion: Posición de la palabra en el diccionario.
+        :return: La palabra en la posición dada.
+        """
+        if 0 <= posicion < len(self.diccionario):
+            return self.diccionario[posicion]
+        return None
+
+    def dar_intentos_disponibles(self) -> int:
+        """Devuelve el número de intentos disponibles."""
+        return self.intentos_disponibles
+
+    def dar_jugadas(self) -> List[Letra]:
+        """Devuelve la lista de letras jugadas."""
+        return self.jugadas.copy()
+
+    def dar_ocurrencias(self) -> List[str]:
+        """
+        Devuelve las ocurrencias de la palabra actual basadas en las jugadas.
+        :return: Lista con las letras adivinadas o "_" para las no adivinadas.
+        """
+        if self.palabra_actual is None:
+            return []
+        return self.palabra_actual.dar_ocurrencias(self.jugadas)
+
+    def dar_estado(self) -> Estado:
+        """Devuelve el estado actual del juego."""
+        return self.estado
+
+    def letra_utilizada(self, letra: Letra) -> bool:
+        """
+        Verifica si una letra ya fue utilizada en el juego.
+        :param letra: La letra a verificar.
+        :return: True si la letra ya fue utilizada, False en caso contrario.
+        """
+        for jugada in self.jugadas:
+            if jugada.es_igual(letra):
+                return True
+        return False
+
+    def metodo1(self) -> str:
+        return "Respuesta 1"
+
+    def metodo2(self) -> str:
+        return "Respuesta 2"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Letra Class -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-name">Letra</h3>
+                        <span class="class-type">Auxiliar</span>
+                    </div>
+                    <div class="class-description">
+                        <p>Representa una letra individual del juego. Maneja la comparación entre letras sin distinción de mayúsculas y minúsculas.</p>
+                    </div>
+                    <div class="code-container">
+                        <pre class="code-block"><code class="python-code">class Letra:
+    """
+    Clase que representa una letra de una palabra.
+    """
+
+    def __init__(self, p_letra: str):
+        """
+        Crea una nueva letra a partir de un carácter dado.
+        :param p_letra: Variable de tipo str que representa un carácter para inicializar la letra.
+        """
+        self.letra = p_letra.lower()  # Almacenamos en minúscula para comparaciones 
+
+    def dar_letra(self) -> str:
+        """
+        Devuelve el carácter que representa la letra.
+        :return: Un carácter con la letra.
+        """
+        return self.letra
+
+    def es_igual(self, otra_letra: 'Letra') -> bool:
+        """
+        Indica si dos letras son iguales, sin importar si una está en mayúscula y otra en minúscula.
+        :param otra_letra: La letra para comparar.
+        :return: True si las letras son iguales sin importar mayúsculas/minúsculas, False de lo contrario.
+        """
+        return self.letra == otra_letra.letra</code></pre>
+                    </div>
+                </div>
+
+                <!-- Palabra Class -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <h3 class="class-name">Palabra</h3>
+                        <span class="class-type">Auxiliar</span>
+                    </div>
+                    <div class="class-description">
+                        <p>Representa una palabra del juego compuesta por letras. Maneja la validación de completitud y las ocurrencias de letras en la palabra.</p>
+                    </div>
+                    <div class="code-container">
+                        <pre class="code-block"><code class="python-code">from typing import List
+from Letra import Letra
+
+class Palabra:
+    """
+    Clase para representar una palabra del juego. 
+    """
+
+    def __init__(self, p_palabra: str):
+        """
+        Construye una nueva palabra a partir de su representación en string.
+        :param p_palabra: La palabra que se quiere construir.
+        """
+        self.letras = [Letra(char) for char in p_palabra.lower()]
+    
+    def esta_completa(self, p_jugadas: List[Letra]) -> bool:
+        """
+        Indica si con las letras jugadas ya es posible conocer la palabra completa.
+        :param p_jugadas: Lista con las letras jugadas.
+        :return: True si la palabra está completamente adivinada, False en caso contrario.
+        """
+        for letra in self.letras:
+            if not self._buscar_letra_en_lista(letra, p_jugadas):
+                return False
+        return True
+
+    def _buscar_letra_en_lista(self, p_letra: Letra, lista_letras: List[Letra]) -> bool:
+        """
+        Indica si una letra se encuentra en una lista dada.
+        :param p_letra: Letra que se está buscando.
+        :param lista_letras: Lista de letras en la que se busca.
+        :return: True si está la letra, False en caso contrario.
+        """
+        for letra in lista_letras:
+            if letra.es_igual(p_letra):
+                return True
+        return False
+
+    def esta_letra(self, p_letra: Letra) -> bool:
+        """
+        Informa si una letra hace parte de la palabra.
+        :param p_letra: Letra a consultar.
+        :return: True si la letra está en la palabra, False de lo contrario.
+        """
+        return self._buscar_letra_en_lista(p_letra, self.letras)
+
+    def dar_ocurrencias(self, p_jugadas: List[Letra]) -> List[str]:
+        """
+        Devuelve una lista con las letras jugadas correctamente, reemplazando las no adivinadas con "_".
+        :param p_jugadas: Letras jugadas.
+        :return: Lista de letras visibles (las que han sido adivinadas o "_" para las desconocidas).
+        """
+        resultado = []
+        for letra in self.letras:
+            if self._buscar_letra_en_lista(letra, p_jugadas):
+                resultado.append(letra.dar_letra())
+            else:
+                resultado.append("_")
+        return resultado
+
+    def dar_letras(self) -> List[Letra]:
+        """
+        Devuelve el arreglo con las letras de la palabra.
+        :return: Lista de letras que componen la palabra.
+        """
+        return self.letras</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Juego del Ahorcado. Desarrollado con mucho ☕</p>
+        </div>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // Header animation on scroll
+        gsap.to(".header", {
+            backgroundColor: "rgba(17, 17, 17, 0.95)",
+            backdropFilter: "blur(10px)",
+            scrollTrigger: {
+                trigger: ".header",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Hero animations
+        gsap.timeline()
+            .from(".hero-title", { duration: 1, y: 50, opacity: 1, ease: "power3.out" })
+            .from(".hero-subtitle", { duration: 0.8, y: 30, opacity: 1, ease: "power3.out" }, "-=0.5")
+            .from(".stat-item", { duration: 0.6, y: 20, opacity: 1, stagger: 0.2, ease: "power3.out" }, "-=0.3")
+            .from(".floating-code", { duration: 1, x: 100, opacity: 1, ease: "power3.out" }, "-=0.8");
+
+        // Floating animation for hero code
+        gsap.to(".floating-code", {
+            y: -20,
+            duration: 3,
+            ease: "power1.inOut",
+            yoyo: true,
+            repeat: -1
+        });
+
+        // Section title animations
+        gsap.utils.toArray(".section-title").forEach(title => {
+            gsap.from(title, {
+                duration: 1,
+                y: 50,
+                opacity: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: title,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Table rows animation
+        gsap.from(".table-row", {
+            duration: 0.8,
+            y: 30,
+            opacity: 1,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".requirements-table",
+                start: "top 70%",
+                end: "bottom 30%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Flowchart nodes animation
+        gsap.from(".flowchart-node", {
+            duration: 0.8,
+            scale: 0,
+            opacity: 1,
+            stagger: 0.2,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: ".flowchart-container",
+                start: "top 70%",
+                end: "bottom 30%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Flow arrows animation
+        gsap.from(".flow-arrow", {
+            duration: 0.6,
+            scaleY: 0,
+            opacity: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".flowchart-container",
+                start: "top 70%",
+                end: "bottom 30%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Class cards animation
+        gsap.from(".class-card", {
+            duration: 1,
+            y: 50,
+            opacity: 1,
+            stagger: 0.3,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".classes-grid",
+                start: "top 70%",
+                end: "bottom 30%",
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // Hover animations for interactive elements
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(link, { duration: 0.3, scale: 1.1, color: "#00ff88" });
+            });
+            link.addEventListener('mouseleave', () => {
+                gsap.to(link, { duration: 0.3, scale: 1, color: "#ffffff" });
+            });
+        });
+
+        document.querySelectorAll('.class-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { 
+                    duration: 0.3, 
+                    y: -10, 
+                    boxShadow: "0 20px 40px rgba(0, 255, 136, 0.2)",
+                    ease: "power2.out"
+                });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { 
+                    duration: 0.3, 
+                    y: 0, 
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Table row hover
+        document.querySelectorAll('.table-row').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                gsap.to(row, { duration: 0.3, backgroundColor: "rgba(0, 255, 136, 0.1)" });
+            });
+            row.addEventListener('mouseleave', () => {
+                gsap.to(row, { duration: 0.3, backgroundColor: "transparent" });
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1,
+                        scrollTo: { y: target, offsetY: 80 },
+                        ease: "power3.inOut"
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero section
+        gsap.to(".hero-visual", {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+    </script>
+</body>
+</html>
