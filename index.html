@@ -20,7 +20,8 @@
 <a href="#requirements" class="nav-link">Requerimientos</a>
 <a href="#flowchart" class="nav-link">Diagrama</a>
 <a href="#classes" class="nav-link">Clases</a>
-<a href="#pytest-section" class="nav-link">Pytest</a> <a href="#participants" class="nav-link">Participantes</a>
+<a href="#pytest-section" class="nav-link">Pytest</a> 
+<a href="#participants" class="nav-link">Participantes</a>
 </div>
 </nav>
 </header>
@@ -51,6 +52,58 @@
 </div>
 </div>
 </section>
+
+
+<section class="hero">
+    <div class="hero-content">
+        <h2 class="hero-title">El Clásico Juego del Ahorcado</h2>
+        <p class="hero-subtitle">Desafía tus habilidades de adivinación y pon a prueba tu vocabulario.</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Intentos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Palabras secretas</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="game-section" class="game-container">
+    <div class="section-title">Juega al Ahorcado</div>
+    <div class="game-area">
+        <div class="hangman-display" id="hangman-drawing">
+            <pre id="hangman-figure">
++---+
+|  |
+   |
+   |
+   |
+   |
+=========
+            </pre>
+        </div>
+        <div class="game-info">
+            <p class="word-display" id="word-display">_ _ _ _ _ _ _ _</p>
+            <p class="attempts-left" id="attempts-left">Intentos restantes: 6</p>
+            <p class="used-letters" id="used-letters">Letras usadas: </p>
+
+            <div class="input-area">
+                <input type="text" id="guess-input" maxlength="1" placeholder="Ingresa una letra">
+                <button id="guess-button" class="btn primary-btn">Adivinar</button>
+                <button id="restart-button" class="btn secondary-btn" style="display: none;">Jugar de Nuevo</button>
+            </div>
+            <p class="game-message" id="game-message"></p>
+        </div>
+    </div>
+</section>
+
+<script src="ahorcado.js"></script>
+<script src="game-logic.js"></script>
+</body>
+</html>
 
 <section id="requirements" class="section">
 <div class="container">

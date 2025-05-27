@@ -699,3 +699,167 @@
     --text-secondary: #cccccc;
     }
     }
+    /* --- ESTILOS DEL JUEGO DEL AHORCADO --- */
+
+/* Contenedor principal del juego */
+.game-container {
+    padding: 4rem 2rem; /* Espaciado interno */
+    max-width: 1200px; /* Ancho máximo para centrar */
+    margin: 0 auto; /* Centrar horizontalmente */
+    text-align: center; /* Centrar el contenido de texto */
+    background-color: var(--bg-secondary); /* Color de fondo secundario */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Sombra para profundidad */
+    margin-top: 4rem; /* Separación de la sección anterior */
+    margin-bottom: 3rem; /* Separación de la sección siguiente */
+}
+
+/* Área principal del juego (dibujo + info) */
+.game-area {
+    display: flex; /* Usar flexbox para organizar elementos */
+    flex-direction: column; /* Apilar en columnas por defecto (móvil) */
+    align-items: center; /* Centrar elementos horizontalmente */
+    gap: 2rem; /* Espacio entre el dibujo y la información */
+}
+
+/* Para pantallas más grandes, colocar el dibujo y la info en fila */
+@media (min-width: 768px) {
+    .game-area {
+        flex-direction: row; /* En fila para pantallas de escritorio */
+        justify-content: center; /* Centrar elementos horizontalmente */
+        align-items: flex-start; /* Alinear arriba para el dibujo */
+    }
+}
+
+/* Contenedor del dibujo del ahorcado */
+.hangman-display {
+    background-color: var(--bg-card); /* Color de fondo de tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 1.5rem; /* Espaciado interno */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+    min-width: 250px; /* Ancho mínimo */
+    max-width: 300px; /* Ancho máximo */
+}
+
+/* Estilo para el texto ASCII del ahorcado */
+#hangman-figure {
+    font-family: monospace; /* Fuente monoespaciada para el dibujo ASCII */
+    font-size: 0.9rem; /* Tamaño de fuente, ajusta si es necesario */
+    color: var(--text-primary); /* Color de texto principal */
+    text-align: center; /* Centrar el dibujo */
+    line-height: 1.2; /* Espaciado de línea */
+    margin: 0; /* Sin margen */
+    white-space: pre; /* Preserva los espacios y saltos de línea del ASCII art */
+}
+
+/* Contenedor de la información del juego (palabra, intentos, etc.) */
+.game-info {
+    flex-grow: 1; /* Permite que ocupe el espacio restante */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Estilo de la palabra a adivinar */
+.word-display {
+    font-family: 'Segoe UI', sans-serif; /* Misma fuente que el resto de la página */
+    font-size: 2.5rem; /* Tamaño grande para visibilidad */
+    font-weight: bold; /* Negrita */
+    letter-spacing: 0.5rem; /* Espacio entre letras para "_ _ _" */
+    margin-bottom: 1rem; /* Margen inferior */
+    color: var(--primary-color); /* Color de acento neón */
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.3); /* Sombra de texto neón */
+}
+
+/* Estilos para intentos restantes y letras usadas */
+.attempts-left, .used-letters, .game-message {
+    font-size: 1.2rem; /* Tamaño de fuente */
+    color: var(--text-secondary); /* Color de texto secundario */
+    margin-bottom: 0.8rem; /* Margen inferior */
+}
+
+/* Estilo para mensajes del juego (ganador/perdedor/error) */
+.game-message {
+    font-weight: bold; /* Negrita */
+    color: var(--primary-color); /* Color por defecto (puedes cambiarlo con JS para errores/éxito) */
+    min-height: 24px; /* Para evitar saltos de layout cuando no hay mensaje */
+}
+
+/* Área de entrada de usuario (input y botones) */
+.input-area {
+    display: flex; /* Usar flexbox */
+    gap: 1rem; /* Espacio entre elementos */
+    justify-content: center; /* Centrar los elementos */
+    margin-top: 1.5rem; /* Margen superior */
+    flex-wrap: wrap; /* Permite que los elementos salten de línea en pantallas pequeñas */
+}
+
+/* Campo de entrada de texto */
+#guess-input {
+    padding: 0.8rem 1rem; /* Espaciado interno */
+    border: 1px solid var(--border-color); /* Borde sutil */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: var(--bg-card); /* Fondo de tarjeta */
+    color: var(--text-primary); /* Color de texto principal */
+    font-size: 1.1rem; /* Tamaño de fuente */
+    width: 60px; /* Ancho fijo para una sola letra */
+    text-align: center; /* Centrar el texto */
+    outline: none; /* Eliminar el contorno de enfoque predeterminado */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+/* Estilo del campo de entrada al enfocarlo */
+#guess-input:focus {
+    border-color: var(--primary-color); /* Borde de color primario al enfocar */
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); /* Sombra neón al enfocar */
+}
+
+/* Estilos base para todos los botones */
+.btn {
+    padding: 0.8rem 1.5rem; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1.1rem; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de puntero al pasar por encima */
+    transition: all 0.3s ease; /* Transiciones suaves para hover */
+    font-weight: bold; /* Negrita */
+}
+
+/* Botón primario (Adivinar) */
+.primary-btn {
+    background-color: var(--primary-color); /* Color de acento neón */
+    color: var(--bg-primary); /* Color de texto oscuro para contraste */
+}
+
+/* Efecto hover para el botón primario */
+.primary-btn:hover {
+    background-color: #00e673; /* Un verde ligeramente más oscuro */
+    transform: translateY(-2px); /* Pequeño levantamiento */
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3); /* Sombra que crece */
+}
+
+/* Botón secundario (Jugar de Nuevo) */
+.secondary-btn {
+    background-color: var(--text-muted); /* Color gris tenue */
+    color: var(--text-primary); /* Color de texto blanco */
+}
+
+/* Efecto hover para el botón secundario */
+.secondary-btn:hover {
+    background-color: #6a6a6a; /* Un gris ligeramente más oscuro */
+    transform: translateY(-2px); /* Pequeño levantamiento */
+    box-shadow: 0 5px 15px rgba(128, 128, 128, 0.3); /* Sombra que crece */
+}
+
+/* Responsividad básica para el juego en pantallas más pequeñas */
+@media (max-width: 500px) {
+    .word-display {
+        font-size: 1.8rem; /* Reducir tamaño de fuente */
+        letter-spacing: 0.3rem; /* Reducir espaciado entre letras */
+    }
+    .attempts-left, .used-letters, .game-message {
+        font-size: 1rem; /* Reducir tamaño de fuente */
+    }
+    .btn, #guess-input {
+        font-size: 1rem; /* Reducir tamaño de fuente de botones e input */
+        padding: 0.7rem 1.2rem; /* Reducir padding */
+    }
+}
