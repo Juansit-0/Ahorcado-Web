@@ -506,7 +506,37 @@
         color: var(--text-secondary);
         margin-top: 1rem;
     }
-    
+
+    /* GitHub Button */
+    #github-button {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1001; /* Ensure it's above other elements */
+    }
+
+    #github-button a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        color: var(--text-primary);
+        font-size: 2.2rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+    }
+
+    #github-button a:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 20px rgba(0, 255, 136, 0.6);
+        background: var(--gradient-secondary);
+    }
+
     /* Media Queries for Responsiveness */
     @media (max-width: 768px) {
     .nav {
@@ -571,6 +601,17 @@
 
     .pytest-image {
         max-width: 100%; /* Full width on small screens */
+    }
+
+    #github-button {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    #github-button a {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
     }
     }
     
