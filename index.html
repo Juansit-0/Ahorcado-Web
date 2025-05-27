@@ -19,6 +19,7 @@
 <a href="#requirements" class="nav-link">Requerimientos</a>
 <a href="#flowchart" class="nav-link">Diagrama</a>
 <a href="#classes" class="nav-link">Clases</a>
+<a href="#participants" class="nav-link">Participantes</a>
 </div>
 </nav>
 </header>
@@ -151,114 +152,136 @@
 <div class="class-description">
 <p>Clase principal que controla la lógica del juego. Gestiona el estado del juego, los intentos disponibles y coordina la interacción con otras clases.</p>
 <div class="code-container">
-<pre><code class="python-code">class JuegoAhorcado:
-"""
-Clase principal que controla la lógica del juego Ahorcado.
-Gestiona el estado del juego, los intentos disponibles y coordina
-la interacción con las clases Palabra y Letra.
-"""
-def __init__(self, diccionario: list['Palabra']):
-self.diccionario: list['Palabra'] = diccionario
-self.palabra_actual: 'Palabra' = None
-self.intentos_disponibles: int = 6 # Seis intentos como máximo
-self.jugadas: list['Letra'] = [] # Lista de letras intentadas
-self.estado: EstadoJuego = EstadoJuego.NO_INICIADO # Estado inicial
-
-def iniciar_juego(self) -> None:
-"""
-Inicia una nueva partida de Ahorcado.
-Selecciona una palabra aleatoria del diccionario, resetea intentos y jugadas,
-y establece el estado del juego a JUGANDO.
-"""
-import random
-self.palabra_actual = random.choice(self.diccionario)
-self.intentos_disponibles = 6
-self.jugadas = []
-self.estado = EstadoJuego.JUGANDO
-
-def jugar_letra(self, letra: 'Letra') -> None:
-"""
-Procesa la jugada de una letra por parte del usuario.
-Verifica si la letra ya fue utilizada, la agrega a las jugadas,
-actualiza los intentos si la letra es incorrecta y determina
-las condiciones de victoria o derrota del juego.
-"""
-if self.estado != EstadoJuego.JUGANDO:
-print("El juego no está en curso. Inicia una nueva partida.")
-return
-
-if self.letra_utilizada(letra):
-print(f"La letra '{letra.dar_letra()}' ya ha sido utilizada.")
-return
-
-self.jugadas.append(letra)
-
-if not self.palabra_actual.esta_letra(letra):
-self.intentos_disponibles -= 1
-print(f"Letra incorrecta. Intentos restantes: {self.intentos_disponibles}")
-else:
-print(f"¡Letra correcta! '{letra.dar_letra()}' está en la palabra.")
-
-self._actualizar_estado_juego()
-
-def _actualizar_estado_juego(self) -> None:
-"""
-Actualiza el estado del juego (GANADOR, AHORCADO o JUGANDO)
-basándose en el progreso actual.
-"""
-if self.palabra_actual.esta_completa(self.jugadas):
-self.estado = EstadoJuego.GANADOR
-print("¡Felicidades! Has adivinado la palabra. ¡Has ganado!")
-elif self.intentos_disponibles <= 0:
-self.estado = EstadoJuego.AHORCADO
-print(f"¡Oh no! Te has quedado sin intentos. La palabra era: {self.palabra_actual.dar_letras_como_string()}")
-else:
-self.estado = EstadoJuego.JUGANDO # Se mantiene jugando si no ha ganado ni perdido
-
-def dar_palabra_actual(self) -> 'Palabra':
-"""Retorna la palabra actual del juego."""
-return self.palabra_actual
-
-def dar_palabra(self, posicion: int) -> 'Palabra':
-"""Retorna una palabra del diccionario en la posición dada."""
-if 0 <= posicion < len(self.diccionario):
-return self.diccionario[posicion]
-return None
-
-def dar_intentos_disponibles(self) -> int:
-"""Retorna el número de intentos disponibles restantes."""
-return self.intentos_disponibles
-
-def dar_jugadas(self) -> list['Letra']:
-"""Retorna una copia de las letras ya jugadas."""
-return list(self.jugadas)
-
-def dar_ocurrencias(self) -> list[str]:
-"""
-Retorna la representación actual de la palabra con letras adivinadas
-y guiones bajos para las no adivinadas (ej. ['H', '_', 'L', '_']).
-"""
-if self.palabra_actual:
-return self.palabra_actual.dar_ocurrencias(self.jugadas)
-return []
-
-def dar_estado(self) -> 'EstadoJuego':
-"""Retorna el estado actual del juego."""
-return self.estado
-
-def letra_utilizada(self, letra: 'Letra') -> bool:
-"""Verifica si una letra ya ha sido utilizada en la partida actual."""
-return any(l.es_igual(letra) for l in self.jugadas)
-
-# Definición de Enum para el estado del juego (requiere Python 3.4+)
-from enum import Enum
-
-class EstadoJuego(Enum):
-NO_INICIADO = "No Iniciado"
-JUGANDO = "Jugando"
-GANADOR = "Ganador"
-AHORCADO = "Ahorcado"
-
+<pre><code class="python-code">import random
+    from enum import Enum
+    from typing import List
+    from Palabra import Palabra
+    from Letra import Letra
+    
+    
+    class Estado(Enum):
+        NO_INICIADO = 1
+        JUGANDO = 2
+        GANADOR = 3
+        AHORCADO = 4
+    
+    class JuegoAhorcado:
+        TOTAL_PALABRAS = 12
+        MAX_INTENTOS = 6
+    
+        def __init__(self):
+            self.diccionario: List[Palabra] = [
+                Palabra("algoritmo"),
+                Palabra("contenedora"),
+                Palabra("avance"),
+                Palabra("ciclo"),
+                Palabra("indice"),
+                Palabra("instrucciones"),
+                Palabra("arreglo"),
+                Palabra("vector"),
+                Palabra("inicio"),
+                Palabra("cuerpo"),
+                Palabra("recorrido"),
+                Palabra("patron"),
+            ]
+            
+            # Atributos del estado del juego 
+            self.palabra_actual: Palabra = None
+            self.intentos_disponibles: int = self.MAX_INTENTOS
+            self.jugadas: List[Letra] = []
+            self.estado: Estado = Estado.NO_INICIADO
+    
+        def iniciar_juego(self):
+            """Inicia un nuevo juego seleccionando una palabra aleatoria."""
+            indice_aleatorio = random.randint(0, self.TOTAL_PALABRAS - 1)
+            self.palabra_actual = self.diccionario[indice_aleatorio]
+            self.intentos_disponibles = self.MAX_INTENTOS
+            self.jugadas = []
+            self.estado = Estado.JUGANDO
+    
+        def jugar_letra(self, letra: Letra) -> bool:
+            """
+            Juega una letra en el juego.
+            :param letra: La letra a jugar.
+            :return: True si la letra está en la palabra, False si no está.
+            """
+            if self.estado != Estado.JUGANDO:
+                return False
+            
+            # Verificar si la letra ya fue utilizada
+            if self.letra_utilizada(letra):
+                return False
+            
+            # Agregar la letra a las jugadas
+            self.jugadas.append(letra)
+            
+            # Verificar si la letra está en la palabra
+            if self.palabra_actual.esta_letra(letra):
+                # Verificar si se ganó el juego
+                if self.palabra_actual.esta_completa(self.jugadas):
+                    self.estado = Estado.GANADOR
+                return True
+            else:
+                # La letra no está en la palabra, reducir intentos
+                self.intentos_disponibles -= 1
+                
+                # Verificar si se perdió el juego
+                if self.intentos_disponibles == 0:
+                    self.estado = Estado.AHORCADO
+                
+                return False
+    
+        def dar_palabra_actual(self) -> Palabra:
+            """Devuelve la palabra actual del juego."""
+            return self.palabra_actual
+    
+        def dar_palabra(self, posicion: int) -> Palabra:
+            """
+            Devuelve la palabra en la posición especificada del diccionario.
+            :param posicion: Posición de la palabra en el diccionario.
+            :return: La palabra en la posición dada.
+            """
+            if 0 <= posicion < len(self.diccionario):
+                return self.diccionario[posicion]
+            return None
+    
+        def dar_intentos_disponibles(self) -> int:
+            """Devuelve el número de intentos disponibles."""
+            return self.intentos_disponibles
+    
+        def dar_jugadas(self) -> List[Letra]:
+            """Devuelve la lista de letras jugadas."""
+            return self.jugadas.copy()
+    
+        def dar_ocurrencias(self) -> List[str]:
+            """
+            Devuelve las ocurrencias de la palabra actual basadas en las jugadas.
+            :return: Lista con las letras adivinadas o "_" para las no adivinadas.
+            """
+            if self.palabra_actual is None:
+                return []
+            return self.palabra_actual.dar_ocurrencias(self.jugadas)
+    
+        def dar_estado(self) -> Estado:
+            """Devuelve el estado actual del juego."""
+            return self.estado
+    
+        def letra_utilizada(self, letra: Letra) -> bool:
+            """
+            Verifica si una letra ya fue utilizada en el juego.
+            :param letra: La letra a verificar.
+            :return: True si la letra ya fue utilizada, False en caso contrario.
+            """
+            for jugada in self.jugadas:
+                if jugada.es_igual(letra):
+                    return True
+            return False
+    
+        def metodo1(self) -> str:
+            return "Respuesta 1"
+    
+        def metodo2(self) -> str:
+            return "Respuesta 2"
 </code></pre>
 </div>
 </div>
@@ -273,43 +296,31 @@ AHORCADO = "Ahorcado"
 <p>Representa una letra individual en el juego, manejando comparaciones sin distinción de mayúsculas y minúsculas.</p>
 <div class="code-container">
 <pre><code class="python-code">class Letra:
-"""
-Representa una letra individual en el juego del Ahorcado.
-Maneja la letra como un carácter único y permite comparaciones
-sin distinción de mayúsculas y minúsculas.
-"""
-def __init__(self, letra: str):
-if not isinstance(letra, str) or len(letra) != 1 or not letra.isalpha():
-raise ValueError("Letra debe ser un único carácter alfabético.")
-self.letra: str = letra.lower() # Almacenar en minúscula para consistencia
+    """
+    Clase que representa una letra de una palabra.
+    """
 
-def dar_letra(self) -> str:
-"""Retorna el carácter de la letra."""
-return self.letra
+    def __init__(self, p_letra: str):
+        """
+        Crea una nueva letra a partir de un carácter dado.
+        :param p_letra: Variable de tipo str que representa un carácter para inicializar la letra.
+        """
+        self.letra = p_letra.lower()  # Almacenamos en minúscula para comparaciones 
 
-def es_igual(self, otra_letra: 'Letra') -> bool:
-"""
-Compara si esta letra es igual a otra, sin importar mayúsculas/minúsculas.
-"""
-if not isinstance(otra_letra, Letra):
-return False
-return self.letra == otra_letra.dar_letra()
+    def dar_letra(self) -> str:
+        """
+        Devuelve el carácter que representa la letra.
+        :return: Un carácter con la letra.
+        """
+        return self.letra
 
-def __eq__(self, other):
-"""Permite la comparación con == """
-if not isinstance(other, Letra):
-return NotImplemented
-return self.es_igual(other)
-
-def __hash__(self):
-"""Permite que los objetos Letra sean usados en sets/dicts"""
-return hash(self.letra)
-
-def __str__(self):
-return self.letra
-
-def __repr__(self):
-return f"Letra('{self.letra}')"
+    def es_igual(self, otra_letra: 'Letra') -> bool:
+        """
+        Indica si dos letras son iguales, sin importar si una está en mayúscula y otra en minúscula.
+        :param otra_letra: La letra para comparar.
+        :return: True si las letras son iguales sin importar mayúsculas/minúsculas, False de lo contrario.
+        """
+        return self.letra == otra_letra.letra
 </code></pre>
 </div>
 </div>
@@ -323,62 +334,98 @@ return f"Letra('{self.letra}')"
 <div class="class-description">
 <p>Representa una palabra del juego, compuesta por objetos <code>Letra</code>. Encargada de validar si la palabra ha sido completamente adivinada y de mostrar las ocurrencias de las letras.</p>
 <div class="code-container">
-<pre><code class="python-code">class Palabra:
-"""
-Representa una palabra en el juego del Ahorcado.
-Compuesta por una secuencia de objetos Letra.
-Encargada de validar si la palabra ha sido completamente adivinada
-y de mostrar las ocurrencias de las letras adivinadas.
-"""
-def __init__(self, palabra_str: str):
-if not isinstance(palabra_str, str) or not palabra_str.isalpha():
-raise ValueError("Palabra debe ser una cadena de caracteres alfabéticos.")
-self.letras: list['Letra'] = [Letra(c) for c in palabra_str]
-
-def esta_completa(self, p_jugadas: list['Letra']) -> bool:
-"""
-Verifica si la palabra ha sido completamente adivinada
-basándose en las letras jugadas por el usuario.
-"""
-return all(self._buscar_letra_en_lista(l, p_jugadas) for l in self.letras)
-
-def _buscar_letra_en_lista(self, p_letra: 'Letra', lista_letras: list['Letra']) -> bool:
-"""
-Método auxiliar privado para verificar si una Letra está presente
-en una lista de objetos Letra.
-"""
-return any(l.es_igual(p_letra) for l in lista_letras)
-
-def esta_letra(self, p_letra: 'Letra') -> bool:
-"""Verifica si una letra dada está presente en la palabra."""
-return self._buscar_letra_en_lista(p_letra, self.letras)
-
-def dar_ocurrencias(self, p_jugadas: list['Letra']) -> list[str]:
-"""
-Retorna una lista de caracteres, mostrando las letras adivinadas
-y '_' para las letras aún no adivinadas de la palabra.
-"""
-return [l.dar_letra() if self._buscar_letra_en_lista(l, p_jugadas) else '_' for l in self.letras]
-
-def dar_letras(self) -> list['Letra']:
-"""Retorna la lista de objetos Letra que componen la palabra."""
-return list(self.letras) # Retorna una copia para evitar modificación externa
-
-def dar_letras_como_string(self) -> str:
-"""Retorna la palabra completa como una cadena de texto."""
-return "".join(l.dar_letra() for l in self.letras)
-
-def __str__(self):
-return self.dar_letras_como_string()
-
-def __repr__(self):
-return f"Palabra('{self.dar_letras_como_string()}')"
+<pre><code class="python-code">from typing import List
+    from Letra import Letra
+    
+    class Palabra:
+        """
+        Clase para representar una palabra del juego. 
+        """
+    
+        def __init__(self, p_palabra: str):
+            """
+            Construye una nueva palabra a partir de su representación en string.
+            :param p_palabra: La palabra que se quiere construir.
+            """
+            self.letras = [Letra(char) for char in p_palabra.lower()]
+        
+        def esta_completa(self, p_jugadas: List[Letra]) -> bool:
+            """
+            Indica si con las letras jugadas ya es posible conocer la palabra completa.
+            :param p_jugadas: Lista con las letras jugadas.
+            :return: True si la palabra está completamente adivinada, False en caso contrario.
+            """
+            for letra in self.letras:
+                if not self._buscar_letra_en_lista(letra, p_jugadas):
+                    return False
+            return True
+    
+        def _buscar_letra_en_lista(self, p_letra: Letra, lista_letras: List[Letra]) -> bool:
+            """
+            Indica si una letra se encuentra en una lista dada.
+            :param p_letra: Letra que se está buscando.
+            :param lista_letras: Lista de letras en la que se busca.
+            :return: True si está la letra, False en caso contrario.
+            """
+            for letra in lista_letras:
+                if letra.es_igual(p_letra):
+                    return True
+            return False
+    
+        def esta_letra(self, p_letra: Letra) -> bool:
+            """
+            Informa si una letra hace parte de la palabra.
+            :param p_letra: Letra a consultar.
+            :return: True si la letra está en la palabra, False de lo contrario.
+            """
+            return self._buscar_letra_en_lista(p_letra, self.letras)
+    
+        def dar_ocurrencias(self, p_jugadas: List[Letra]) -> List[str]:
+            """
+            Devuelve una lista con las letras jugadas correctamente, reemplazando las no adivinadas con "_".
+            :param p_jugadas: Letras jugadas.
+            :return: Lista de letras visibles (las que han sido adivinadas o "_" para las desconocidas).
+            """
+            resultado = []
+            for letra in self.letras:
+                if self._buscar_letra_en_lista(letra, p_jugadas):
+                    resultado.append(letra.dar_letra())
+                else:
+                    resultado.append("_")
+            return resultado
+    
+        def dar_letras(self) -> List[Letra]:
+            """
+            Devuelve el arreglo con las letras de la palabra.
+            :return: Lista de letras que componen la palabra.
+            """
+            return self.letras
 </code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
+</section>
+
+<section id="participants" class="section">
+    <div class="container">
+        <h2 class="section-title">Participantes del Grupo</h2>
+        <div class="participants-list">
+            <div class="participant-item">
+                <h3 class="participant-name">Juan Felipe Narvaez Herrera</h3>
+                <p class="participant-id">ID: 123456789</p>
+            </div>
+            <div class="participant-item">
+                <h3 class="participant-name">Juan Camilo López Díaz</h3>
+                <p class="participant-id">ID: 987654321</p>
+            </div>
+            <div class="participant-item">
+                <h3 class="participant-name">William Chavez Bravo</h3>
+                <p class="participant-id">ID: 456789123</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <footer class="footer">
@@ -436,7 +483,7 @@ toggleActions: "play none none reverse"
 });
 
 // Table row and card animations
-gsap.utils.toArray(".table-row, .class-card").forEach(element => {
+gsap.utils.toArray(".table-row, .class-card, .participant-item").forEach(element => {
 gsap.from(element, {
 opacity: 0,
 y: 20,
